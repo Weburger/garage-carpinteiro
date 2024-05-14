@@ -7,3 +7,94 @@ Description: Vroum les voitures
 Version: 1.0
 Text Domain: garage-carpinteiro
 */
+
+
+#header{
+    position:fixed;
+    z-index:100;
+    width: 100%;
+}
+
+body{
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-size:16px !important;
+    font-weight: 450;
+    font-style: normal;
+    margin:0;
+}
+
+#main-navigation{
+
+    display:flex;
+    justify-content: space-around;
+
+
+}
+
+.menu{
+    flex-grow:2;
+}
+
+.menu ul{
+    display: flex;
+    justify-content: space-around;
+    list-style: none;
+    padding-left:0;
+}
+
+#main-navigation a{
+    text-decoration: none;
+    color:white;
+    font-size: 1rem ;
+    font-weight: 450;
+}
+
+.menu a:hover{
+    text-decoration: underline;
+}
+
+.logo-header{
+    display:flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-grow:1;
+    width:auto;
+
+}
+
+.logo-header a{
+    font-size:1.25rem;
+    font-weight: 700 !important;
+}
+
+.wp-block-cover{
+    position: absolute;
+    top:0;
+    padding: 0 !important;
+    margin:0 !important;
+}
+
+
+
+.btn-yellow a{
+    background: none;
+    color:black;
+
+}
+
+
+.btn-yellow, .btn-yellow a {
+    color:black;
+    background: linear-gradient(to right, #EFDF00 50%, black 50%);
+    background-size: 200% 100%;
+    transition:  0.3s;
+    border-radius:0 !important;
+}
+
+/* Define the hover state */
+.btn-yellow:hover, .btn-yellow a:hover {
+    background-position: -100% 0;
+    color:white;
+    transition:  0.3s;
+}
+
