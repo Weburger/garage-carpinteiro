@@ -13,6 +13,7 @@ Text Domain: garage-carpinteiro
     position:fixed;
     z-index:100;
     width: 100%;
+    border-bottom: 1px solid white;
 }
 
 body{
@@ -27,6 +28,8 @@ body{
 
     display:flex;
     justify-content: space-around;
+    margin-top:1rem;
+    margin-bottom: 1rem;
 
 
 }
@@ -49,22 +52,47 @@ body{
     font-weight: 450;
 }
 
-.menu a:hover{
-    text-decoration: underline;
-}
 
 .logo-header{
     display:flex;
     align-items: center;
-    justify-content: space-around;
-    flex-grow:1;
+    justify-content: center;
+    flex-grow:3;
     width:auto;
 
+}
+
+#main-navigation .menu a {
+    text-decoration: none;
+    position: relative;
+    color: white;
+}
+
+#main-navigation .menu a::after{
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 100%;
+    height: 1px;
+    background-color: white;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease-in-out;
+}
+
+#main-navigation .menu a:hover::after {
+    transform: scaleX(1);
 }
 
 .logo-header a{
     font-size:1.25rem;
     font-weight: 700 !important;
+}
+.logo-header a:hover{
+    font-size:1.25rem;
+    font-weight: 700 !important;
+    text-decoration: none !important;
 }
 
 .wp-block-cover{
@@ -89,12 +117,84 @@ body{
     background-size: 200% 100%;
     transition:  0.3s;
     border-radius:0 !important;
+    border:none !important;
 }
 
-/* Define the hover state */
+
 .btn-yellow:hover, .btn-yellow a:hover {
     background-position: -100% 0;
     color:white;
     transition:  0.3s;
 }
 
+#footer {
+    background-color: #fff;
+    color: #000;
+    text-align:center;
+
+}
+
+.footer-top {
+    border-top: 1px solid #999999;
+    padding-top: 20px;
+}
+
+.footer-logo img {
+    height: 50px;
+}
+
+.footer-middle {
+    padding: 2rem 0;
+}
+
+.footer-contact-icons a {
+    margin: 0 1rem;
+}
+
+.footer-contact-icons img {
+    width: 48px;
+    height: 48px;
+}
+
+.footer-bottom {
+    background-color: #000;
+    color: #fff;
+    padding: 10px 0;
+}
+
+.footer-bottom a {
+    color: #fff;
+    margin: 0 1rem;
+    text-decoration: none;
+}
+
+.footer-bottom a:hover {
+    text-decoration: underline;
+}
+
+.footer-logo{
+    font-size:1.25rem;
+    font-weight:700;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    gap:0.5rem;
+
+}
+
+.footer-logo img{
+    height:29px;
+    width: 22px;
+}
+
+.slogan-bottom{
+    color:#999;
+    font-size:1rem;
+    font-weight: 450;
+}
+
+.copyright{
+    color: #999;
+    font-size: 0.75rem;
+    font-weight: 450;
+}
