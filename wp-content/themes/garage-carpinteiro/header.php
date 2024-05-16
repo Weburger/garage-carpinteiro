@@ -11,10 +11,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+    <script src="<?php echo get_template_directory_uri(); ?>/js/menucolor.js"></script>
     <?php wp_head(); ?>
 </head>
 <body <?php body_class(); ?>>
-    <header id="header">
+    <header id="header" data-default-color="white">
         <nav id="main-navigation">
             <div class="logo-header"><svg width="49" height="53" viewBox="0 0 49 53" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <g clip-path="url(#clip0_45_3)">

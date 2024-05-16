@@ -13,7 +13,43 @@ Text Domain: garage-carpinteiro
     position:fixed;
     z-index:100;
     width: 100%;
+    transition: 0.3s;
     border-bottom: 1px solid white;
+    background: none;
+}
+#header.scrolled-black {
+    border-bottom: 1px solid black;
+    background-color: white;
+}
+#header.scrolled-black #main-navigation a {
+    color: black;
+}
+#header.scrolled-black #main-navigation .menu a::after {
+    background-color: black;
+}
+#header.scrolled-black svg g path {
+   fill: black !important;
+}
+#header.scrolled-black .menu a:hover::after {
+    background-color: black;
+}
+#header.scrolled-white {
+    border-bottom: 1px solid white;
+}
+#header.scrolled-white #main-navigation a {
+    color: white;
+}
+#header.scrolled-white #main-navigation .menu a::after {
+    background-color: white;
+}
+#header.scrolled-white svg g path {
+    fill: white !important;
+}
+#header.scrolled-white .menu a:hover::after {
+    background-color: white;
+}
+main{
+    margin:128px;
 }
 
 body{
@@ -197,4 +233,29 @@ body{
     color: #999;
     font-size: 0.75rem;
     font-weight: 450;
+}
+
+.liste-entretient{
+    list-style:none;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: 480px;
+}
+
+.liste-entretient li{
+    background-image: url('assets/images/checkmark.svg') ;
+    background-repeat: no-repeat;
+    padding-left: 55px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+
+
+}
+
+.titre-section{
+    border-left: solid #EFDF00 2px ;
+    padding-left: 14px;
+    margin-bottom:5rem;
 }
