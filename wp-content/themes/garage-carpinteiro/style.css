@@ -24,6 +24,10 @@ Text Domain: garage-carpinteiro
 #header.scrolled-black #main-navigation a {
     color: black;
 }
+
+#header.scrolled-black #main-navigation a:hover {
+    color: black !important;
+}
 #header.scrolled-black #main-navigation .menu a::after {
     background-color: black;
 }
@@ -103,6 +107,9 @@ body{
     position: relative;
     color: white;
 }
+#main-navigation .menu a:hover {
+    color: white !important;
+}
 
 #main-navigation .menu a::after{
     content: '';
@@ -129,6 +136,7 @@ body{
     font-size:1.25rem;
     font-weight: 700 !important;
     text-decoration: none !important;
+    color:white !important;
 }
 
 .wp-block-cover{
@@ -254,8 +262,32 @@ body{
 
 }
 
+h2{
+    font-weight: 700;
+    font-size:3rem;
+    line-height: 3.75rem;
+}
+
 .titre-section{
     border-left: solid #EFDF00 2px ;
     padding-left: 14px;
     margin-bottom:5rem;
+
 }
+
+ a{
+    text-decoration: underline 4px #EFDF00;
+     transition: 0.3s;
+}
+
+ a:hover{
+     color:#EFDF00 !important;
+     transition: 0.3s;
+ }
+
+ .mob-share{
+     padding: 5rem 0;
+     font-size: 2rem;
+     font-weight: 700;
+     line-height: 2.5rem;
+ }
