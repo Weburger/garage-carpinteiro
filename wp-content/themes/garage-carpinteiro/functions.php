@@ -1,6 +1,12 @@
 <?php
 add_theme_support('post-thumbnails');
 
+add_action( 'wp_enqueue_scripts', 'my_assets' );
+function my_assets() {
+    wp_register_style( 'archive', get_template_directory_uri().'./assets/css/archive.css');
+    wp_enqueue_style( 'archive' );
+}
+
 add_action('init', function () {
     $labels = array(
         'name' => __("Voitures"),
@@ -49,15 +55,24 @@ function voiture_meta_box_callback($post) {
     $marque = get_post_meta($post->ID, 'marque', true);
     $modele = get_post_meta($post->ID, 'modele', true);
     $classe = get_post_meta($post->ID, 'classe', true);
+    $puissance_fiscale = get_post_meta($post->ID, 'puissance_fiscale', true);
+    $puissance_din = get_post_meta($post->ID, 'puissance_din', true);
     $motorisation = get_post_meta($post->ID, 'motorisation', true);
     $annee = get_post_meta($post->ID, 'annee', true);
     $km = get_post_meta($post->ID, 'km', true);
     $transmission = get_post_meta($post->ID, 'transmission', true);
     $carburant = get_post_meta($post->ID, 'carburant', true);
     $prix = get_post_meta($post->ID, 'prix', true);
+    $portes = get_post_meta($post->ID, 'portes', true);
+    $places = get_post_meta($post->ID, 'places', true);
+    $consommation = get_post_meta($post->ID, 'consommation', true);
+
 
     echo '<label for="modele">' . __('Modèle') . '</label>';
     echo '<input type="text" id="modele" name="modele" value="' . esc_attr($modele) . '"></br></br>';
+
+    echo '<label for="marque">' . __('Marque') . '</label>';
+    echo '<input type="text" id="marque" name="marque" value="' . esc_attr($marque) . '"></br></br>';
 
     echo '<label for="classe">' . __('Classe') . '</label>';
     echo '<input type="text" id="classe" name="classe" value="' . esc_attr($classe) . '"></br></br>';
@@ -65,20 +80,59 @@ function voiture_meta_box_callback($post) {
     echo '<label for="motorisation">' . __('Motorisation') . '</label>';
     echo '<input type="text" id="motorisation" name="motorisation" value="' . esc_attr($motorisation) . '"></br></br>';
 
+    echo '<label for="puissance_fiscale">' . __('Puissance fiscale (cv) ') . '</label>';
+    echo '<input type="number" id="puissance_fiscale" name="puissance_fiscale" value="' . esc_attr($puissance_fiscale) . '"></br></br>';
+
+    echo '<label for="puissance_din">' . __('Puissance DIN (cv) ') . '</label>';
+    echo '<input type="number" id="puissance_din" name="puissance_din" value="' . esc_attr($puissance_din) . '"></br></br>';
+
     echo '<label for="annee">' . __('Année') . '</label>';
     echo '<input type="text" id="annee" name="annee" value="' . esc_attr($annee) . '"></br></br>';
 
-    echo '<label for="km">' . __('Nombre de km') . '</label>';
-    echo '<input type="text" id="km" name="km" value="' . esc_attr($km) . '"></br></br>';
+    echo '<label for="km">' . __('Kilometrage') . '</label>';
+    echo '<input type="number" id="km" name="km" value="' . esc_attr($km) . '"></br></br>';
 
-    echo '<label for="transmission">' . __('Manuelle ou automatique') . '</label>';
-    echo '<input type="text" id="transmission" name="transmission" value="' . esc_attr($transmission) . '"></br></br>';
+    echo '<label for="transmission">' . __('Transmission') . '</label>';
+    echo '
+    <select name="transmission" id="transmission">
+        <option value="'. esc_attr($transmission).'">';
+        if($transmission){
+            echo $transmission;
+        }else{
+            echo "-- Choisir une option --";
+        }
+        echo'</option>
+        <option value="manuelle">Manuelle</option>
+        <option value="automatique">Automatique</option>
+    </select></br></br>';
 
-    echo '<label for="carburant">' . __('Essence ou diesel') . '</label>';
-    echo '<input type="text" id="carburant" name="carburant" value="' . esc_attr($carburant) . '"></br></br>';
+    echo '<label for="carburant">' . __('Carburant') . '</label>';
+    echo '    <select name="carburant" id="carburant">
+        <option value="'. esc_attr($carburant).'">';
+    if($carburant){
+        echo $carburant;
+    }else{
+        echo "-- Choisir une option --";
+    }
+    echo'</option>
+        <option value="essence">Essence</option>
+        <option value="diesel">Diesel</option>
+        <option value="electrique">Electrique</option>
+        <option value="hybride">Hybride</option>
+        <option value="gaz">Gaz</option>
+    </select></br></br>';
 
-    echo '<label for="prix">' . __('Prix') . '</label>';
-    echo '<input type="text" id="prix" name="prix" value="' . esc_attr($prix) . '"></br></br>';
+    echo '<label for="prix">' . __('Prix (euros)') . '</label>';
+    echo '<input type="number" id="prix" name="prix" value="' . esc_attr($prix) . '"></br></br>';
+
+    echo '<label for="portes">' . __('Portes') . '</label>';
+    echo '<input type="number" id="portes" name="portes" value="' . esc_attr($portes) . '"></br></br>';
+
+    echo '<label for="places">' . __('Places') . '</label>';
+    echo '<input type="number" id="places" name="places" value="' . esc_attr($places) . '"></br></br>';
+
+    echo '<label for="consommation">' . __('Consommation (L/100km)') . '</label>';
+    echo '<input type="number" id="consommation" name="consommation" value="' . esc_attr($consommation) . '"></br></br>';
 }
 
 function voiture_save_meta_box_data($post_id) {
@@ -95,8 +149,22 @@ function voiture_save_meta_box_data($post_id) {
         return;
     }
 
-    $fields = ['marque', 'modele', 'classe', 'motorisation', 'annee', 'km', 'transmission', 'carburant', 'prix'];
-    foreach ($fields as $field) {
+    $fields = [
+        'marque',
+        'modele',
+        'classe',
+        'puissance_fiscale',
+        'puissance_din',
+        'motorisation',
+        'annee',
+        'km',
+        'transmission',
+        'carburant',
+        'prix',
+        'portes',
+        'places',
+        'consommation'
+    ];    foreach ($fields as $field) {
         if (isset($_POST[$field])) {
             update_post_meta($post_id, $field, sanitize_text_field($_POST[$field]));
         }
@@ -338,13 +406,10 @@ function property_gallery_save( $post_id ) {
         return;
     }
 
-    // Correct post type
-    if ( 'voitures' != $_POST['post_type'] ) // here you can set the post type name
+    if ($_POST && 'voitures' != $_POST['post_type'] )
         return;
 
-    if ( $_POST['gallery'] ){
-
-        // Build array for saving post meta
+    if ($_POST && $_POST['gallery'] ){
         $gallery_data = array();
         for ($i = 0; $i < count( $_POST['gallery']['image_url'] ); $i++ ){
             if ( '' != $_POST['gallery']['image_url'][$i]){

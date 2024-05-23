@@ -1,0 +1,91 @@
+.single-voitures .content-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px;
+}
+
+.single-voitures .entry-header {
+    text-align: center;
+}
+
+.single-voitures .entry-title {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+.single-voitures .entry-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+    max-width: 1200px;
+    margin: 20px 0;
+}
+
+.single-voitures .entry-content img {
+    max-width: 100%;
+    height: auto;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+}
+
+.single-voitures .car-details {
+    flex: 1;
+    padding: 20px;
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    margin-left: 20px;
+}
+
+.single-voitures .car-details p {
+    margin: 5px 0;
+    font-size: 1.2em;
+}
+
+.single-voitures .car-details p strong {
+    display: inline-block;
+    width: 120px;
+}
+
+.single-voitures .car-details .price {
+    font-size: 1.5em;
+    color: #000;
+    margin: 20px 0;
+}
+
+.single-voitures .car-details .contact-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background: #000;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background 0.3s;
+}
+
+.single-voitures .car-details .contact-btn:hover {
+    background: #333;
+}
+
+.single-voitures .gallery {
+    width: 100%;
+    max-width: 1200px;
+    margin: 40px 0;
+}
+
+.single-voitures .gallery-title {
+    font-size: 2em;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #f1c40f;
+    display: inline-block;
+    padding-bottom: 10px;
+}
+
+.single-voitures .gallery img {
+    width: 30%;
+    height: auto;
+    margin: 10px;
+    border-radius: 10px;
+}
