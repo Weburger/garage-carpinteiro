@@ -5,14 +5,20 @@
         <?php
         while (have_posts()) :
             the_post();
+            $marque = get_post_meta(get_the_ID(), 'marque', true);
             $modele = get_post_meta(get_the_ID(), 'modele', true);
             $classe = get_post_meta(get_the_ID(), 'classe', true);
+            $puissance_fiscale = get_post_meta(get_the_ID(), 'puissance_fiscale', true);
+            $puissance_din = get_post_meta(get_the_ID(), 'puissance_din', true);
             $motorisation = get_post_meta(get_the_ID(), 'motorisation', true);
             $annee = get_post_meta(get_the_ID(), 'annee', true);
             $km = get_post_meta(get_the_ID(), 'km', true);
-            $transmission = get_post_meta(get_the_ID(), 'transmission', true);
+            $boite = get_post_meta(get_the_ID(), 'boite', true);
             $carburant = get_post_meta(get_the_ID(), 'carburant', true);
             $prix = get_post_meta(get_the_ID(), 'prix', true);
+            $portes = get_post_meta(get_the_ID(), 'portes', true);
+            $places = get_post_meta(get_the_ID(), 'places', true);
+            $consommation = get_post_meta(get_the_ID(), 'consommation', true);
             ?>
             <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
                 <header class="entry-header">
@@ -22,20 +28,23 @@
                 <div class="entry-content">
                     <?php the_post_thumbnail(); ?>
                     <div class="car-details">
-                        <p><strong><?php _e('Modèle:', 'textdomain'); ?></strong> <?php echo esc_html($modele); ?></p>
-                        <p><strong><?php _e('Classe:', 'textdomain'); ?></strong> <?php echo esc_html($classe); ?></p>
-                        <p><strong><?php _e('Motorisation:', 'textdomain'); ?></strong> <?php echo esc_html($motorisation); ?></p>
-                        <p><strong><?php _e('Année:', 'textdomain'); ?></strong> <?php echo esc_html($annee); ?></p>
-                        <p><strong><?php _e('Nombre de km:', 'textdomain'); ?></strong> <?php echo esc_html($km); ?></p>
-                        <p><strong><?php _e('Transmission:', 'textdomain'); ?></strong> <?php echo esc_html($transmission); ?></p>
-                        <p><strong><?php _e('Carburant:', 'textdomain'); ?></strong> <?php echo esc_html($carburant); ?></p>
-                        <p class="price"><strong><?php _e('Prix:', 'textdomain'); ?></strong> <?php echo esc_html($prix); ?></p>
+                        <div class="main_infos">
+                            <p><strong><?php _e('Marque', 'textdomain'); ?></strong> <?php echo esc_html($marque); ?></p>
+                            <p><strong><?php _e('Modèle', 'textdomain'); ?></strong> <?php echo esc_html($modele); ?></p>
+                            <p><strong><?php _e('Classe', 'textdomain'); ?></strong> <?php echo esc_html($classe); ?></p>
+                        </div>
+                        <div class="sub_infos">
+                            <p><img src="<?php echo get_template_directory_uri() ?>/assets/images/date_range.svg" alt="date_range"><?php echo esc_html($annee); ?></p>
+                            <p><img src="<?php echo get_template_directory_uri() ?>/assets/images/car.svg" alt="car"><?php echo esc_html($km); ?> km</p>
+                            <p><img src="<?php echo get_template_directory_uri() ?>/assets/images/manual-gear.svg" alt="manual_gear"><?php echo esc_html($boite); ?></p>
+                        </div>
+                        <p class="price"> <?php echo esc_html($prix); ?> €</p>
                         <a href="mailto:contact@example.com" class="contact-btn">Contactez-nous</a>
                     </div>
                 </div>
 
+                <h2 class="gallery-title">Photos supplémentaires</h2>
                 <div class="gallery">
-                    <h2 class="gallery-title">Photos supplémentaires</h2>
                     <?php
                     $postData = get_post_meta(get_the_ID());
                     $photos_query = $postData['gallery_data'][0];

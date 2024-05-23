@@ -5,6 +5,8 @@ add_action( 'wp_enqueue_scripts', 'my_assets' );
 function my_assets() {
     wp_register_style( 'archive', get_template_directory_uri().'./assets/css/archive.css');
     wp_enqueue_style( 'archive' );
+    wp_register_style( 'single', get_template_directory_uri().'./assets/css/single.css');
+    wp_enqueue_style( 'single' );
 }
 
 add_action('init', function () {
@@ -60,7 +62,7 @@ function voiture_meta_box_callback($post) {
     $motorisation = get_post_meta($post->ID, 'motorisation', true);
     $annee = get_post_meta($post->ID, 'annee', true);
     $km = get_post_meta($post->ID, 'km', true);
-    $transmission = get_post_meta($post->ID, 'transmission', true);
+    $boite = get_post_meta($post->ID, 'boite', true);
     $carburant = get_post_meta($post->ID, 'carburant', true);
     $prix = get_post_meta($post->ID, 'prix', true);
     $portes = get_post_meta($post->ID, 'portes', true);
@@ -92,12 +94,12 @@ function voiture_meta_box_callback($post) {
     echo '<label for="km">' . __('Kilometrage') . '</label>';
     echo '<input type="number" id="km" name="km" value="' . esc_attr($km) . '"></br></br>';
 
-    echo '<label for="transmission">' . __('Transmission') . '</label>';
+    echo '<label for="boite">' . __('boite') . '</label>';
     echo '
-    <select name="transmission" id="transmission">
-        <option value="'. esc_attr($transmission).'">';
-        if($transmission){
-            echo $transmission;
+    <select name="boite" id="boite">
+        <option value="'. esc_attr($boite).'">';
+        if($boite){
+            echo $boite;
         }else{
             echo "-- Choisir une option --";
         }
@@ -158,7 +160,7 @@ function voiture_save_meta_box_data($post_id) {
         'motorisation',
         'annee',
         'km',
-        'transmission',
+        'boite',
         'carburant',
         'prix',
         'portes',
@@ -428,4 +430,63 @@ function property_gallery_save( $post_id ) {
     }
 }
 add_action( 'save_post', 'property_gallery_save' );
-?>
+
+function filter_voitures_query($query) {
+    if (!is_admin() && $query->is_main_query() && is_post_type_archive('voitures')) {
+        if (isset($_GET['km']) && !empty($_GET['km'])) {
+            $query->set('meta_query', array_merge(
+                $query->get('meta_query', array()),
+                array(
+                    array(
+                        'key' => 'km',
+                        'value' => $_GET['km'],
+                        'compare' => '<=',
+                        'type' => 'NUMERIC'
+                    )
+                )
+            ));
+        }
+
+        if (isset($_GET['prix']) && !empty($_GET['prix'])) {
+            $query->set('meta_query', array_merge(
+                $query->get('meta_query', array()),
+                array(
+                    array(
+                        'key' => 'prix',
+                        'value' => $_GET['prix'],
+                        'compare' => '<=',
+                        'type' => 'NUMERIC'
+                    )
+                )
+            ));
+        }
+
+        if (isset($_GET['carburant']) && !empty($_GET['carburant'])) {
+            $query->set('meta_query', array_merge(
+                $query->get('meta_query', array()),
+                array(
+                    array(
+                        'key' => 'carburant',
+                        'value' => $_GET['carburant'],
+                        'compare' => 'LIKE'
+                    )
+                )
+            ));
+        }
+
+        if (isset($_GET['boite']) && !empty($_GET['boite'])) {
+            $query->set('meta_query', array_merge(
+                $query->get('meta_query', array()),
+                array(
+                    array(
+                        'key' => 'boite',
+                        'value' => $_GET['boite'],
+                        'compare' => 'LIKE'
+                    )
+                )
+            ));
+        }
+    }
+}
+add_action('pre_get_posts', 'filter_voitures_query');
+
