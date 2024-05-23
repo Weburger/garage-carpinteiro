@@ -96,7 +96,8 @@ body{
 .logo-header{
     display:flex;
     align-items: center;
-    justify-content: center;
+    justify-content: left;
+    padding-left:48px;
     flex-grow:3;
     width:auto;
 
