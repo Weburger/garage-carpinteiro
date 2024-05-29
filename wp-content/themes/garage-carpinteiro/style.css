@@ -54,6 +54,8 @@ Text Domain: garage-carpinteiro
 }
 main{
     margin:128px;
+    margin-top: 0;
+    padding-top: 128px;
 }
 
 body{
@@ -147,7 +149,58 @@ body{
     margin:0 !important;
 }
 
+.voitures-home{
+    margin: 0 128px;
+    padding-top: 128px;
+}
 
+.voitures-home > div{
+    flex-wrap: wrap;
+    justify-content: space-between;
+    text-align: left;
+}
+
+.voiture-type, .voiture-infos{
+    text-transform: uppercase;
+    color: #999999;
+    margin: 0;
+}
+
+.voitures-home > div h3{
+    margin-bottom: 0;
+    margin-top: 12px;
+    font-weight: 500
+}
+
+.voitures-home > div h4{
+    font-weight: 900;
+    font-size: 16px;
+    margin: 0;
+}
+
+.voiture-infos p{
+    margin: 0 20px 0 0;
+}
+
+.voiture-type p{
+    margin-right: 20px;
+}
+
+.voitures-home article div p{
+    font-size: 14px;
+    align-items: center;
+    display: flex;
+}
+
+.voitures-home div{
+    display: flex;
+}
+
+.voitures-home img{
+    width: 300px;
+    height: 300px;
+    aspect-ratio: 1/1;
+}
 
 .btn-yellow a{
     background: none;
@@ -169,6 +222,22 @@ body{
 .btn-yellow:hover, .btn-yellow a:hover {
     background-position: -100% 0;
     color:white;
+    transition:  0.3s;
+}
+
+.btn-black, .btn-black a {
+    color:white;
+    background: linear-gradient(to right, black 50%, white 50%);
+    background-size: 200% 100%;
+    transition:  0.3s;
+    border-radius:0 !important;
+    border:none !important;
+}
+
+
+.btn-black:hover, .btn-black a:hover {
+    background-position: -100% 0;
+    color:black !important;
     transition:  0.3s;
 }
 
@@ -279,6 +348,7 @@ h2{
  a{
     text-decoration: underline 4px #EFDF00;
      transition: 0.3s;
+     color: black;
 }
 
  a:hover{
