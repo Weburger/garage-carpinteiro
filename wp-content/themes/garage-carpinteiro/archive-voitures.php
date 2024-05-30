@@ -8,10 +8,12 @@
 
         <?php
         $max_price = get_max_car_price();
+        $min_price = get_min_car_price();
         ?>
 
         <form method="GET" class="filter-form" onsubmit="preventDefault()">
             <input type="hidden" name="action" value="filter_voitures">
+
             <div class="filter-group">
                 <label for="modele"><?php _e('Modèle:', 'textdomain'); ?></label>
                 <input type="text" id="modele" name="modele" value="<?php echo isset($_GET['modele']) ? esc_attr($_GET['modele']) : ''; ?>">
@@ -20,12 +22,22 @@
                 <label for="km"><?php _e('Kilométrage:', 'textdomain'); ?></label>
                 <input type="number" id="km" name="km" value="<?php echo isset($_GET['km']) ? esc_attr($_GET['km']) : ''; ?>">
             </div>
-            <div class="filter-group">
-                <label for="prix"><?php _e('Prix:', 'textdomain'); ?></label>
-                <input type="range" id="prix" name="prix" min="0" max="<?php echo esc_attr($max_price); ?>" step="100"
-                       value="<?php echo isset($_GET['prix']) ? esc_attr($_GET['prix']) : $max_price+1000; ?>">
-                <div class="price-range-value">
-                    <span id="price-value"><?php echo isset($_GET['prix']) ? esc_html($_GET['prix']) : $max_price+1000; ?></span> €
+            <div class="">
+                <div class="range_container">
+                    <div class="sliders_control">
+                        <input id="fromSlider" type="range" name="prix_min" value="<?php echo isset($_GET['prix_min']) ? esc_html($_GET['prix_min']) : $min_price; ?>" min="<?php echo isset($_GET['prix_min']) ? esc_html($_GET['prix_min']) : $min_price; ?>" max="<?php echo isset($_GET['prix_max']) ? esc_html($_GET['prix_max']) : $max_price+1000; ?>"/>
+                        <input id="toSlider" type="range" name="prix_max" value="<?php echo isset($_GET['prix_max']) ? esc_html($_GET['prix_max']) : $max_price+1000; ?>" min="<?php echo isset($_GET['prix_min']) ? esc_html($_GET['prix_min']) : $min_price; ?>" max="<?php echo isset($_GET['prix_max']) ? esc_html($_GET['prix_max']) : $max_price+1000; ?>"/>
+                    </div>
+                    <div class="form_control">
+                        <div class="form_control_container">
+                            <div class="form_control_container__time">Min</div>
+                            <input class="form_control_container__time__input" type="number" id="fromInput" value="<?php echo isset($_GET['prix_min']) ? esc_html($_GET['prix_min']) : $min_price; ?>" min="<?php echo isset($_GET['prix_min']) ? esc_html($_GET['prix_min']) : $min_price; ?>" max="<?php echo isset($_GET['prix_max']) ? esc_html($_GET['prix_max']) : $max_price+1000; ?>"/>
+                        </div>
+                        <div class="form_control_container">
+                            <div class="form_control_container__time">Max</div>
+                            <input class="form_control_container__time__input" type="number" id="toInput" value="<?php echo isset($_GET['prix_max']) ? esc_html($_GET['prix_max']) : $max_price+1000; ?>" min="<?php echo isset($_GET['prix_min']) ? esc_html($_GET['prix_min']) : $min_price; ?>" max="<?php echo isset($_GET['prix_max']) ? esc_html($_GET['prix_max']) : $max_price+1000; ?>"/>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="filter-group">
@@ -103,19 +115,10 @@
 </div>
 <?php get_footer(); ?>
 <script>
-    document.getElementById('prix').addEventListener('input', function() {
-        document.getElementById('price-value').innerText = this.value;
-    });
-
     document.addEventListener('DOMContentLoaded', function () {
         const form = document.querySelector('.filter-form');
         const resultsContainer = document.querySelector('.archive_voitures');
-        const priceInput = document.getElementById('prix');
-        const priceValue = document.getElementById('price-value');
         const ajax_url = "<?php echo admin_url('admin-ajax.php'); ?>";
-        priceInput.addEventListener('input', function() {
-            priceValue.innerText = this.value;
-        });
 
         function debounce(func, wait) {
             let timeout;
