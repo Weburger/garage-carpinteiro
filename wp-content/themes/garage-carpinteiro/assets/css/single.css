@@ -15,6 +15,7 @@
 }
 
 .single-voitures .entry-content {
+    align-items: center;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -22,11 +23,13 @@
     max-width: 1200px;
     margin: 20px 0;
 }
-
-.single-voitures .entry-content img {
-    max-width: 50%;
-    height: auto;
+.carContainer{
+    .single-voitures .entry-content img {
+        width: 100%;
+        height: auto;
+    }
 }
+
 
 .single-voitures .car-details {
     flex: 1;
@@ -110,4 +113,16 @@
     display: flex;
     align-items: center;
     margin-bottom:1rem;
+}
+
+.critairContainer{
+    width: 80px;
+    height: 80px;
+    margin-left: 1rem;
+    img{
+        width: 100%;
+        height: 100%;
+        margin: 0 auto;
+        display: block;
+    }
 }

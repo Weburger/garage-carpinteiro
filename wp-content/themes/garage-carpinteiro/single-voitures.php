@@ -20,6 +20,7 @@
             $places = get_post_meta(get_the_ID(), 'places', true);
             $consommation = get_post_meta(get_the_ID(), 'consommation', true);
             $vendue = get_post_meta(get_the_ID(), "vendue", true);
+            $critair = get_post_meta(get_the_ID(), "critair", true);
             ?>
             <article id="post-<?php the_ID(); ?>" <?php post_class("single_voiture_card" . ($vendue ? " vendue" : "")); ?> >
                 <header class="entry-header">
@@ -27,12 +28,41 @@
                 </header>
 
                 <div class="entry-content">
-                    <?php the_post_thumbnail(); ?>
+                    <div class="carContainer">
+                        <?php the_post_thumbnail(); ?>
+                    </div>
                     <div class="car-details">
                         <div class="main_infos">
                             <p><strong><?php _e('Marque', 'textdomain'); ?></strong> <?php echo esc_html($marque); ?></p>
                             <p><strong><?php _e('Modèle', 'textdomain'); ?></strong> <?php echo esc_html($modele); ?></p>
                             <p><strong><?php _e('Classe', 'textdomain'); ?></strong> <?php echo esc_html($classe); ?></p>
+                            <div class="critairContainer">
+                                <?php
+                                switch ($critair) {
+                                    case '0':
+                                        echo '<img src="' . get_template_directory_uri() . '/assets/images/critair0.png" alt="critair1" class="critairImg">';
+                                        break;
+                                    case '1':
+                                        echo '<img src="' . get_template_directory_uri() . '/assets/images/critair1.png" alt="critair1" class="critairImg">';
+                                        break;
+                                    case '2':
+                                        echo '<img src="' . get_template_directory_uri() . '/assets/images/critair2.png" alt="critair2" class="critairImg">';
+                                        break;
+                                    case '3':
+                                        echo '<img src="' . get_template_directory_uri() . '/assets/images/critair3.png" alt="critair3" class="critairImg">';
+                                        break;
+                                    case '4':
+                                        echo '<img src="' . get_template_directory_uri() . '/assets/images/critair4.png" alt="critair4" class="critairImg">';
+                                        break;
+                                    case '5':
+                                        echo '<img src="' . get_template_directory_uri() . '/assets/images/critair5.png" alt="critair5" class="critairImg">';
+                                        break;
+                                    default:
+                                        echo '';
+                                        break;
+                                }
+                                ?>
+                            </div>
                         </div>
                         <div class="sub_infos">
                             <p><img src="<?php echo get_template_directory_uri() ?>/assets/images/date_range.svg" alt="date_range"><?php echo esc_html($annee); ?></p>

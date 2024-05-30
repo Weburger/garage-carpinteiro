@@ -104,9 +104,9 @@ function voitures_posts_per_page_cb() {
     echo '<input type="number" id="voitures_posts_per_page" name="voitures_posts_per_page" value="' . esc_attr($value) . '" />';
 }
 function my_assets() {
-    wp_register_style( 'archive', get_template_directory_uri().'./assets/css/archive.css');
+    wp_register_style( 'archive', get_template_directory_uri().'/assets/css/archive.css');
     wp_enqueue_style( 'archive' );
-    wp_register_style( 'single', get_template_directory_uri().'./assets/css/single.css');
+    wp_register_style( 'single', get_template_directory_uri().'/assets/css/single.css');
     wp_enqueue_style( 'single' );
 }
 
@@ -222,6 +222,7 @@ function voiture_meta_box_callback($post) {
     $portes = get_post_meta($post->ID, 'portes', true);
     $places = get_post_meta($post->ID, 'places', true);
     $consommation = get_post_meta($post->ID, 'consommation', true);
+    $critair = get_post_meta($post->ID, 'critair', true);
 
     echo '<label for="vendue">' . __('Vendue') . '</label>';
     echo '<input type="checkbox" id="vendue" name="vendue" value="1"' . checked($vendue, true, false) . '></br></br>';
@@ -292,6 +293,24 @@ function voiture_meta_box_callback($post) {
 
     echo '<label for="consommation">' . __('Consommation (L/100km)') . '</label>';
     echo '<input type="number" id="consommation" name="consommation" value="' . esc_attr($consommation) . '"></br></br>';
+
+    echo'<label for="critair">' . __('Critair') . '</label>';
+    echo '
+    <select name="critair" id="critair">
+        <option value="'. esc_attr($critair).'">';
+    if($critair){
+        echo $critair;
+    }else{
+        echo "-- Choisir une option --";
+    }
+    echo'</option>
+        <option value="0">0</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+    </select></br></br>';
 }
 
 function voiture_save_meta_box_data($post_id) {
@@ -323,7 +342,8 @@ function voiture_save_meta_box_data($post_id) {
         'prix',
         'portes',
         'places',
-        'consommation'
+        'consommation',
+        'critair'
     ];    foreach ($fields as $field) {
         if (isset($_POST[$field])) {
             update_post_meta($post_id, $field, sanitize_text_field($_POST[$field]));
