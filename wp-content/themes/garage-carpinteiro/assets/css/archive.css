@@ -115,3 +115,36 @@
 .pictos p{
     font-size: .70rem;
 }
+
+.filter-form {
+    margin-bottom: 20px;
+}
+
+.filter-group {
+    margin-bottom: 10px;
+}
+
+.filter-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.filter-group input,
+.filter-group select {
+    width: 100%;
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+.filter-group button {
+    padding: 10px 20px;
+    background-color: #000;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+.price-range-value {
+    margin-top: 5px;
+    font-size: 1.2em;
+}

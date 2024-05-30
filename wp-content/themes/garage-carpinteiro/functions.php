@@ -208,6 +208,7 @@ function voiture_meta_box_callback($post) {
     wp_nonce_field('voiture_save_meta_box_data', 'voiture_meta_box_nonce');
 
     $marque = get_post_meta($post->ID, 'marque', true);
+    $vendue = get_post_meta($post->ID, 'vendue', true);
     $modele = get_post_meta($post->ID, 'modele', true);
     $classe = get_post_meta($post->ID, 'classe', true);
     $puissance_fiscale = get_post_meta($post->ID, 'puissance_fiscale', true);
@@ -222,9 +223,12 @@ function voiture_meta_box_callback($post) {
     $places = get_post_meta($post->ID, 'places', true);
     $consommation = get_post_meta($post->ID, 'consommation', true);
 
+    echo '<label for="vendue">' . __('Vendue') . '</label>';
+    echo '<input type="checkbox" id="vendue" name="vendue" value="1"' . checked($vendue, true, false) . '></br></br>';
 
     echo '<label for="modele">' . __('Modèle') . '</label>';
     echo '<input type="text" id="modele" name="modele" value="' . esc_attr($modele) . '"></br></br>';
+
 
     echo '<label for="marque">' . __('Marque') . '</label>';
     echo '<input type="text" id="marque" name="marque" value="' . esc_attr($marque) . '"></br></br>';
@@ -306,6 +310,7 @@ function voiture_save_meta_box_data($post_id) {
 
     $fields = [
         'marque',
+        'vendue',
         'modele',
         'classe',
         'puissance_fiscale',
@@ -586,60 +591,171 @@ add_action( 'save_post', 'property_gallery_save' );
 
 function filter_voitures_query($query) {
     if (!is_admin() && $query->is_main_query() && is_post_type_archive('voitures')) {
+        $meta_query = array();
         if (isset($_GET['km']) && !empty($_GET['km'])) {
-            $query->set('meta_query', array_merge(
-                $query->get('meta_query', array()),
-                array(
-                    array(
-                        'key' => 'km',
-                        'value' => $_GET['km'],
-                        'compare' => '<=',
-                        'type' => 'NUMERIC'
-                    )
-                )
-            ));
+            $meta_query[] = array(
+                'key' => 'km',
+                'value' => $_GET['km'],
+                'compare' => '<=',
+                'type' => 'NUMERIC'
+            );
+        }
+
+        if (isset($_GET['modele']) && !empty($_GET['modele'])) {
+            $meta_query[] = array(
+                'key' => 'modele',
+                'value' => $_GET['modele'],
+                'compare' => 'LIKE'
+            );
         }
 
         if (isset($_GET['prix']) && !empty($_GET['prix'])) {
-            $query->set('meta_query', array_merge(
-                $query->get('meta_query', array()),
-                array(
-                    array(
-                        'key' => 'prix',
-                        'value' => $_GET['prix'],
-                        'compare' => '<=',
-                        'type' => 'NUMERIC'
-                    )
-                )
-            ));
+            $meta_query[] = array(
+                'key' => 'prix',
+                'value' => $_GET['prix'],
+                'compare' => '<=',
+                'type' => 'NUMERIC'
+            );
         }
 
         if (isset($_GET['carburant']) && !empty($_GET['carburant'])) {
-            $query->set('meta_query', array_merge(
-                $query->get('meta_query', array()),
-                array(
-                    array(
-                        'key' => 'carburant',
-                        'value' => $_GET['carburant'],
-                        'compare' => 'LIKE'
-                    )
-                )
-            ));
+            $meta_query[] = array(
+                'key' => 'carburant',
+                'value' => $_GET['carburant'],
+                'compare' => 'LIKE'
+            );
         }
 
         if (isset($_GET['boite']) && !empty($_GET['boite'])) {
-            $query->set('meta_query', array_merge(
-                $query->get('meta_query', array()),
-                array(
-                    array(
-                        'key' => 'boite',
-                        'value' => $_GET['boite'],
-                        'compare' => 'LIKE'
-                    )
-                )
-            ));
+            $meta_query[] = array(
+                'key' => 'boite',
+                'value' => $_GET['boite'],
+                'compare' => 'LIKE'
+            );
+        }
+
+        if (!empty($meta_query)) {
+            $query->set('meta_query', $meta_query);
         }
     }
 }
 add_action('pre_get_posts', 'filter_voitures_query');
 
+function get_max_car_price() {
+    global $wpdb;
+
+    $result = $wpdb->get_var("
+        SELECT MAX(CAST(meta_value AS UNSIGNED)) 
+        FROM $wpdb->postmeta 
+        WHERE meta_key = 'prix'
+    ");
+
+    return $result ? $result : 100000;
+}
+
+function enqueue_filter_scripts() {
+    wp_enqueue_script('filter-script', get_template_directory_uri() . '/js/filter-script.js', array('jquery'), null, true);
+
+    // Localisation du script pour y accéder dans le JavaScript
+    wp_localize_script('filter-script', 'ajax_url', admin_url('admin-ajax.php'));
+}
+add_action('wp_enqueue_scripts', 'enqueue_filter_scripts');
+
+function filter_voitures_ajax_handler() {
+    // Assurez-vous que c'est une requête Ajax
+    if (defined('DOING_AJAX') && DOING_AJAX) {
+        // Créez une nouvelle WP_Query avec les mêmes arguments que ceux utilisés dans votre fichier archive
+        $args = array(
+            'post_type' => 'voitures',
+            'post_status' => 'publish',
+            'meta_query' => array()
+        );
+
+        if (isset($_POST['km']) && !empty($_POST['km'])) {
+            $args['meta_query'][] = array(
+                'key' => 'km',
+                'value' => $_POST['km'],
+                'compare' => '<=',
+                'type' => 'NUMERIC'
+            );
+        }
+
+        if (isset($_POST['modele']) && !empty($_POST['modele'])) {
+            $args['meta_query'][] = array(
+                'key' => 'modele',
+                'value' => $_POST['modele'],
+                'compare' => 'LIKE'
+            );
+        }
+
+        if (isset($_POST['prix']) && !empty($_POST['prix'])) {
+            $args['meta_query'][] = array(
+                'key' => 'prix',
+                'value' => $_POST['prix'],
+                'compare' => '<=',
+                'type' => 'NUMERIC'
+            );
+        }
+
+        if (isset($_POST['carburant']) && !empty($_POST['carburant'])) {
+            $args['meta_query'][] = array(
+                'key' => 'carburant',
+                'value' => $_POST['carburant'],
+                'compare' => 'LIKE'
+            );
+        }
+
+        if (isset($_POST['boite']) && !empty($_POST['boite'])) {
+            $args['meta_query'][] = array(
+                'key' => 'boite',
+                'value' => $_POST['boite'],
+                'compare' => 'LIKE'
+            );
+        }
+
+        $query = new WP_Query($args);
+
+        if ($query->have_posts()) {
+            while ($query->have_posts()) : $query->the_post();
+                $modele = get_post_meta(get_the_ID(), 'modele', true);
+                $classe = get_post_meta(get_the_ID(), 'classe', true);
+                $motorisation = get_post_meta(get_the_ID(), 'motorisation', true);
+                $annee = get_post_meta(get_the_ID(), 'annee', true);
+                $km = get_post_meta(get_the_ID(), 'km', true);
+                $boite = get_post_meta(get_the_ID(), 'boite', true);
+                $carburant = get_post_meta(get_the_ID(), 'carburant', true);
+                $prix = get_post_meta(get_the_ID(), 'prix', true);
+                $vendue = get_post_meta(get_the_ID(), "vendue", true);
+                ?>
+                <article id="post-<?php the_ID(); ?>" <?php post_class("archive_voiture_card" . ($vendue ? " vendue" : "")); ?> >
+                    <?php the_post_thumbnail(); ?>
+                    <div class="entry-content">
+                        <h2 class="entry-title"><?php the_title(); ?></h2>
+                        <p class="entry-price"><?php echo esc_html($prix); ?> €</p>
+                        <div class="sub-infos">
+                            <div class="sub-title">
+                                <p><?php echo esc_html($classe); ?></p>
+                                <p><?php echo esc_html($carburant); ?></p>
+                            </div>
+                            <div class="pictos">
+                                <p><img src="<?php echo get_template_directory_uri() ?>/assets/images/date_range.svg" alt="date_range"><?php echo esc_html($annee); ?></p>
+                                <p><img src="<?php echo get_template_directory_uri() ?>/assets/images/car.svg" alt="car"><?php echo esc_html($km); ?> km</p>
+                                <p><img src="<?php echo get_template_directory_uri() ?>/assets/images/manual-gear.svg" alt="manual_gear"><?php echo esc_html($boite); ?></p>
+                            </div>
+                        </div>
+                        <p><strong><?php _e('Modèle:', 'textdomain'); ?></strong> <?php echo esc_html($modele); ?></p>
+                        <p><strong><?php _e('Motorisation:', 'textdomain'); ?></strong> <?php echo esc_html($motorisation); ?></p>
+                        <a href="<?php the_permalink(); ?>" rel="bookmark"><?php _e('En savoir plus', 'textdomain'); ?></a>
+                    </div>
+                </article>
+            <?php
+            endwhile;
+            wp_reset_postdata();
+        } else {
+            echo '<p>' . __('Aucun vehicule trouvé.', 'textdomain') . '</p>';
+        }
+        wp_die(); // Ceci est crucial pour terminer proprement et retourner la réponse
+    }
+}
+add_action('wp_ajax_filter_voitures', 'filter_voitures_ajax_handler'); // Si l'utilisateur est connecté
+add_action('wp_ajax_nopriv_filter_voitures', 'filter_voitures_ajax_handler'); // Si l'utilisateur est déconnecté
