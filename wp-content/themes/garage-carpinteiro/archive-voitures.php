@@ -117,8 +117,16 @@
             priceValue.innerText = this.value;
         });
 
-        const sendAjaxRequest = function () {
-            console.log("test")
+        function debounce(func, wait) {
+            let timeout;
+            return function() {
+                const context = this, args = arguments;
+                clearTimeout(timeout);
+                timeout = setTimeout(() => func.apply(context, args), wait);
+            };
+        }
+
+        const sendAjaxRequest = debounce(function () {
             const formData = new FormData(form);
             formData.append('action', 'filter_voitures');
             fetch(ajax_url, {
@@ -130,34 +138,12 @@
                     resultsContainer.innerHTML = data;
                 })
                 .catch(error => console.error('Error:', error));
-        };
-        function sleep(ms) {
-            return new Promise(resolve => setTimeout(resolve, ms));
-        }
-        function throttle(callback, delay) {
-            var last;
-            var timer;
-            return function () {
-                var context = this;
-                var now = +new Date();
-                var args = arguments;
-                if (last && now < last + delay) {
-                    clearTimeout(timer);
-                    timer = setTimeout(function () {
-                        last = now;
-                        callback.apply(context, args);
-                    }, delay);
-                } else {
-                    last = now;
-                    callback.apply(context, args);
-                }
-            };
-        }
-        const throttledSendAjaxRequest = throttle(sendAjaxRequest, 500);
-        form.addEventListener('input', function (e) {
-        e.preventDefault();
-        throttledSendAjaxRequest
-        }
+        }, 500);
+
+        form.addEventListener('input', function() {
+            sendAjaxRequest();
+        });
     });
+
 
 </script>

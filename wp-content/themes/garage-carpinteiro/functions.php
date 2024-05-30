@@ -674,9 +674,6 @@ function get_max_car_price() {
 }
 
 function enqueue_filter_scripts() {
-    wp_enqueue_script('filter-script', get_template_directory_uri() . '/js/filter-script.js', array('jquery'), null, true);
-
-    // Localisation du script pour y accéder dans le JavaScript
     wp_localize_script('filter-script', 'ajax_url', admin_url('admin-ajax.php'));
 }
 add_action('wp_enqueue_scripts', 'enqueue_filter_scripts');
