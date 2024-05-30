@@ -108,6 +108,7 @@ function my_assets() {
     wp_enqueue_style( 'archive' );
     wp_register_style( 'single', get_template_directory_uri().'/assets/css/single.css');
     wp_enqueue_style( 'single' );
+    wp_enqueue_script('archive-script', get_template_directory_uri() . '/assets/js/archive.js', array('jquery'), '1.0.0', true);
 }
 
 function add_voitures_meta_box() {

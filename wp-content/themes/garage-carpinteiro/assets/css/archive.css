@@ -148,3 +148,36 @@
     margin-top: 5px;
     font-size: 1.2em;
 }
+
+.titre{
+    padding-left: 1rem;
+    position: relative;
+    h1{
+        margin-bottom: 0;
+    }
+    p{
+        margin-top: 0;
+        color: #999999;
+    }
+}
+
+.titre::before{
+    position: absolute;
+    content: "";
+    display: block;
+    width: 1px;
+    height: 100%;
+    background-color: #F8EB4C;
+    top: 0;
+    left: 0;
+}
+
+.moreFilters{
+    display: none;
+    height: 0;
+}
+
+.seeMore{
+    cursor: pointer;
+    width: fit-content;
+}
