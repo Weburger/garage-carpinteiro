@@ -23,7 +23,7 @@
                 <label for="km"><?php _e('Kilométrage:', 'textdomain'); ?></label>
                 <input type="number" id="km" name="km" value="<?php echo isset($_GET['km']) ? esc_attr($_GET['km']) : ''; ?>">
             </div>
-            <div class="">
+            <div class="filter-group range-filter">
                 <div class="range_container">
                     <div class="sliders_control">
                         <input id="fromSlider" type="range" name="prix_min" value="<?php echo isset($_GET['prix_min']) ? esc_html($_GET['prix_min']) : $min_price; ?>" min="<?php echo isset($_GET['prix_min']) ? esc_html($_GET['prix_min']) : $min_price; ?>" max="<?php echo isset($_GET['prix_max']) ? esc_html($_GET['prix_max']) : $max_price+1000; ?>"/>

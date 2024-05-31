@@ -174,7 +174,6 @@
 
 .moreFilters{
     display: none;
-    height: 0;
 }
 
 .seeMore{
@@ -186,7 +185,6 @@
     display: flex;
     flex-direction: column;
     width: 80%;
-    margin: 100px auto;
 }
 
 .sliders_control {
@@ -260,4 +258,9 @@ input[type="range"] {
 #fromSlider {
     height: 0;
     z-index: 1;
+}
+
+.range-filter{
+    display: flex;
+    justify-content: center;
 }
