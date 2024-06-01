@@ -151,12 +151,14 @@
 
 .titre{
     padding-left: 1rem;
+    margin-bottom: 80px;
+    gap: 0;
     position: relative;
     h1{
-        margin-bottom: 0;
+        margin-bottom: 0 !important;
     }
     p{
-        margin-top: 0;
+        margin-top: 0 !important;
         color: #999999;
     }
 }

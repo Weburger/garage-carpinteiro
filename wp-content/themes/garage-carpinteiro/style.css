@@ -338,13 +338,6 @@ h2{
     line-height: 3.75rem;
 }
 
-.titre-section{
-    border-left: solid #EFDF00 2px ;
-    padding-left: 14px;
-    margin-bottom:5rem;
-
-}
-
  a{
     text-decoration: underline 4px #EFDF00;
      transition: 0.3s;
