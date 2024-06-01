@@ -85,7 +85,8 @@
                 $vendue = get_post_meta(get_the_ID(), "vendue", true);
                 ?>
                 <article id="post-<?php the_ID(); ?>" <?php post_class("archive_voiture_card" . ($vendue ? " vendue" : "")); ?> >
-                    <?php the_post_thumbnail(); ?>
+                    <div class="img-car"><?php the_post_thumbnail(); ?>
+                        <?php if($vendue) echo "<div class='car-vendue'><h3>VENDUE</h3></div>" ?></div>
                     <div class="entry-content">
                         <h2 class="entry-title"><?php the_title(); ?></h2>
                         <p class="entry-price"><?php echo esc_html($prix); ?> €</p>
@@ -102,7 +103,7 @@
                         </div>
                         <p><strong><?php _e('Modèle:', 'textdomain'); ?></strong> <?php echo esc_html($modele); ?></p>
                         <p><strong><?php _e('Motorisation:', 'textdomain'); ?></strong> <?php echo esc_html($motorisation); ?></p>
-                        <a href="<?php the_permalink(); ?>" rel="bookmark"><?php _e('En savoir plus', 'textdomain'); ?></a>
+                        <a href="<?php echo the_permalink() ?>" rel='bookmark'> <?php _e('En savoir plus', 'textdomain') ?></a>
                     </div>
                 </article>
             <?php endwhile; ?>

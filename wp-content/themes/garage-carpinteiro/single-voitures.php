@@ -30,6 +30,7 @@
                 <div class="entry-content">
                     <div class="carContainer">
                         <?php the_post_thumbnail(); ?>
+                        <?php if($vendue) echo "<div class='car-vendue'><h3>VENDUE</h3></div>" ?>
                     </div>
                     <div class="car-details">
                         <div class="main_infos">
