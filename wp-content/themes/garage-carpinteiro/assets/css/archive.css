@@ -261,6 +261,53 @@ input[type="range"] {
 }
 
 .range-filter{
-    display: flex;
-    justify-content: center;
+    .range_container{
+        margin: 0 auto;
+        margin-top: 1rem;
+    }
+}
+
+.kilometreFilter{
+    input{
+        border: #8f8e9c solid 1px;
+        border-radius: 4px;
+    }
+}
+
+.selectOption{
+    select{
+        display: block;
+        width: 100%;
+        height: 34px;
+        padding: 6px 12px;
+        font-size: 14px;
+        line-height: 1.42857143;
+        color: #555;
+        background-color: #fff;
+        background-image: none;
+        border: 1px solid #8f8e9c;
+        border-radius: 4px;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    .post-type-archive-voitures{
+        .site-main{
+            padding: 0;
+            margin: 0;
+        }
+        .archive_voitures{
+            flex-direction: column;
+            .archive_voiture_card{
+                width: 100%;
+                .sub-title{
+                    justify-content: start;
+                    p{
+                        margin-right: 1rem;
+                    }
+                }
+            }
+        }
+    }
+    
 }

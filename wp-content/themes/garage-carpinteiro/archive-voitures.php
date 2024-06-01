@@ -19,11 +19,8 @@
                 <label for="modele"><?php _e('Modèle:', 'textdomain'); ?></label>
                 <input type="text" id="modele" name="modele" value="<?php echo isset($_GET['modele']) ? esc_attr($_GET['modele']) : ''; ?>">
             </div>
-            <div class="filter-group">
-                <label for="km"><?php _e('Kilométrage:', 'textdomain'); ?></label>
-                <input type="number" id="km" name="km" value="<?php echo isset($_GET['km']) ? esc_attr($_GET['km']) : ''; ?>">
-            </div>
-            <div class="filter-group range-filter">
+            <div class="range-filter">
+                <label for="prix_min"><?php _e('Prix:', 'textdomain'); ?></label>
                 <div class="range_container">
                     <div class="sliders_control">
                         <input id="fromSlider" type="range" name="prix_min" value="<?php echo isset($_GET['prix_min']) ? esc_html($_GET['prix_min']) : $min_price; ?>" min="<?php echo isset($_GET['prix_min']) ? esc_html($_GET['prix_min']) : $min_price; ?>" max="<?php echo isset($_GET['prix_max']) ? esc_html($_GET['prix_max']) : $max_price+1000; ?>"/>
@@ -42,11 +39,11 @@
                 </div>
             </div>
             <div class="moreFilters">
-                <div class="filter-group">
+                <div class="filter-group kilometreFilter">
                     <label for="km"><?php _e('Kilométrage:', 'textdomain'); ?></label>
                     <input type="number" id="km" name="km" value="<?php echo isset($_GET['km']) ? esc_attr($_GET['km']) : ''; ?>">
                 </div>
-                <div class="filter-group">
+                <div class="filter-group carburantFilter selectOption">
                     <label for="carburant"><?php _e('Carburant:', 'textdomain'); ?></label>
                     <select name="carburant" id="carburant">
                         <option value=""><?php _e('-- Choisir une option --', 'textdomain'); ?></option>
@@ -56,9 +53,8 @@
                         <option value="Hybride" <?php isset($_GET['carburant']) ? selected($_GET['carburant'], 'Hybride') : "" ?>>Hybride</option>
                         <option value="Gaz" <?php isset($_GET['carburant']) ? selected($_GET['carburant'], 'Gaz') : "" ?>>Gaz</option>
                     </select>
-                    </select>
                 </div>
-                <div class="filter-group">
+                <div class="filter-group boiteFilter selectOption">
                     <label for="boite"><?php _e('Boîte de vitesse:', 'textdomain'); ?></label>
                     <select name="boite" id="boite">
                         <option value=""><?php _e('-- Choisir une option --', 'textdomain'); ?></option>
@@ -67,7 +63,7 @@
                     </select>
                 </div>
             </div>
-            <p class="seeMore">Voir plus <i class="fas fa-chevron-down"></i></p>
+            <p class="seeMore">Voir plus</p>
         </form>
 
         <?php if (have_posts()) : ?>
