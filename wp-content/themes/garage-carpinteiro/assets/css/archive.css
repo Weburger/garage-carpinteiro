@@ -24,6 +24,10 @@
     border-bottom: 1px solid #ddd;
 }
 
+.img-car{
+    position: relative;
+}
+
 .entry-content {
     padding: 15px;
 }
@@ -151,12 +155,14 @@
 
 .titre{
     padding-left: 1rem;
+    margin-bottom: 80px;
+    gap: 0;
     position: relative;
     h1{
-        margin-bottom: 0;
+        margin-bottom: 0 !important;
     }
     p{
-        margin-top: 0;
+        margin-top: 0 !important;
         color: #999999;
     }
 }
@@ -174,6 +180,26 @@
 
 .moreFilters{
     display: none;
+}
+
+.car-vendue{
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1/1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: #EFDF00;
+    text-align: center;
+    top: 0;
+    z-index: 5;
+    background-color: rgba(0, 0, 0, 0.5);
+    position: absolute;
+}
+
+.car-vendue h3{
+    transform: rotate(-25deg);
 }
 
 .seeMore{
@@ -292,8 +318,18 @@ input[type="range"] {
 
 @media screen and (max-width: 1024px) {
     .post-type-archive-voitures{
+        .filter-form{
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+        .titre{
+            margin-bottom: 20px;
+        }
+        .titre::before{
+            left:2%;
+        }
         .site-main{
-            padding: 0;
+            padding-top: 70px;
             margin: 0;
         }
         .archive_voitures{

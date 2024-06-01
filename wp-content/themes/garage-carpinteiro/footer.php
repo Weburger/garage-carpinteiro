@@ -22,12 +22,9 @@
     <div class="footer-bottom">
         <div class="container text-center">
 	        <?php
-	        wp_nav_menu(array(
-		        'theme_location' => 'primary',
-		        'container' => false,
-		        'menu_id' => 'main-menu',
-		        'menu_class' => 'menu'
-	        ));
+            wp_nav_menu( array(
+                'menu' => 'Footer',
+            ));
 	        ?>
         </div>
     </div>

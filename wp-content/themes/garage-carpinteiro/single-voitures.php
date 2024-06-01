@@ -23,46 +23,48 @@
             $critair = get_post_meta(get_the_ID(), "critair", true);
             ?>
             <article id="post-<?php the_ID(); ?>" <?php post_class("single_voiture_card" . ($vendue ? " vendue" : "")); ?> >
-                <header class="entry-header">
+                <header class=" titre">
                     <?php the_title('<h1 class="entry-title">', '</h1>'); ?>
+                    <p style="text-transform: uppercase"><?php echo $classe ?>, <?php echo $carburant ?></p>
                 </header>
 
                 <div class="entry-content">
                     <div class="carContainer">
                         <?php the_post_thumbnail(); ?>
+                        <?php if($vendue) echo "<div class='car-vendue'><h3>VENDUE</h3></div>" ?>
+                        <div class="critairContainer">
+                            <?php
+                            switch ($critair) {
+                                case '0':
+                                    echo '<img src="' . get_template_directory_uri() . '/assets/images/critair0.png" alt="critair1" class="critairImg">';
+                                    break;
+                                case '1':
+                                    echo '<img src="' . get_template_directory_uri() . '/assets/images/critair1.png" alt="critair1" class="critairImg">';
+                                    break;
+                                case '2':
+                                    echo '<img src="' . get_template_directory_uri() . '/assets/images/critair2.png" alt="critair2" class="critairImg">';
+                                    break;
+                                case '3':
+                                    echo '<img src="' . get_template_directory_uri() . '/assets/images/critair3.png" alt="critair3" class="critairImg">';
+                                    break;
+                                case '4':
+                                    echo '<img src="' . get_template_directory_uri() . '/assets/images/critair4.png" alt="critair4" class="critairImg">';
+                                    break;
+                                case '5':
+                                    echo '<img src="' . get_template_directory_uri() . '/assets/images/critair5.png" alt="critair5" class="critairImg">';
+                                    break;
+                                default:
+                                    echo '';
+                                    break;
+                            }
+                            ?>
+                        </div>
                     </div>
                     <div class="car-details">
                         <div class="main_infos">
                             <p><strong><?php _e('Marque', 'textdomain'); ?></strong> <?php echo esc_html($marque); ?></p>
                             <p><strong><?php _e('Modèle', 'textdomain'); ?></strong> <?php echo esc_html($modele); ?></p>
                             <p><strong><?php _e('Classe', 'textdomain'); ?></strong> <?php echo esc_html($classe); ?></p>
-                            <div class="critairContainer">
-                                <?php
-                                switch ($critair) {
-                                    case '0':
-                                        echo '<img src="' . get_template_directory_uri() . '/assets/images/critair0.png" alt="critair1" class="critairImg">';
-                                        break;
-                                    case '1':
-                                        echo '<img src="' . get_template_directory_uri() . '/assets/images/critair1.png" alt="critair1" class="critairImg">';
-                                        break;
-                                    case '2':
-                                        echo '<img src="' . get_template_directory_uri() . '/assets/images/critair2.png" alt="critair2" class="critairImg">';
-                                        break;
-                                    case '3':
-                                        echo '<img src="' . get_template_directory_uri() . '/assets/images/critair3.png" alt="critair3" class="critairImg">';
-                                        break;
-                                    case '4':
-                                        echo '<img src="' . get_template_directory_uri() . '/assets/images/critair4.png" alt="critair4" class="critairImg">';
-                                        break;
-                                    case '5':
-                                        echo '<img src="' . get_template_directory_uri() . '/assets/images/critair5.png" alt="critair5" class="critairImg">';
-                                        break;
-                                    default:
-                                        echo '';
-                                        break;
-                                }
-                                ?>
-                            </div>
                         </div>
                         <div class="sub_infos">
                             <p><img src="<?php echo get_template_directory_uri() ?>/assets/images/date_range.svg" alt="date_range"><?php echo esc_html($annee); ?></p>
@@ -70,7 +72,8 @@
                             <p><img src="<?php echo get_template_directory_uri() ?>/assets/images/manual-gear.svg" alt="manual_gear"><?php echo esc_html($boite); ?></p>
                         </div>
                         <p class="price"> <?php echo esc_html($prix); ?> €</p>
-                        <a href="mailto:contact@example.com" class="contact-btn">Contactez-nous</a>
+                        <p>Intéréssé par cette annonce ?</p>
+                        <div><a href="/#contact" class="contact-btn">Contactez-nous</a></div>
                     </div>
                 </div>
 
@@ -78,12 +81,16 @@
                 <div class="gallery">
                     <?php
                     $postData = get_post_meta(get_the_ID());
-                    $photos_query = $postData['gallery_data'][0];
-                    $photos_array = unserialize($photos_query);
-                    $url_array = $photos_array['image_url'];
-                    $count = sizeof($url_array);
-                    for ($i = 0; $i < $count; $i++) {
-                        echo '<img class="img-fluid gallery-img" src="' . $url_array[$i] . '" alt=""/>';
+                    if(isset($postData['gallery_data'])) {
+                        $photos_query = $postData['gallery_data'][0];
+                        $photos_array = unserialize($photos_query);
+                        $url_array = $photos_array['image_url'];
+                        $count = sizeof($url_array);
+                        for ($i = 0; $i < $count; $i++) {
+                            echo '<img class="img-fluid gallery-img" src="' . $url_array[$i] . '" alt=""/>';
+                        }
+                    } else {
+                        echo "<p>Aucune photo supplémentaire.</p>";
                     }
                     ?>
                 </div>
