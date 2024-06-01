@@ -73,7 +73,7 @@
                         </div>
                         <p class="price"> <?php echo esc_html($prix); ?> €</p>
                         <p>Intéréssé par cette annonce ?</p>
-                        <a href="/#contact" class="contact-btn">Contactez-nous</a>
+                        <div><a href="/#contact" class="contact-btn">Contactez-nous</a></div>
                     </div>
                 </div>
 

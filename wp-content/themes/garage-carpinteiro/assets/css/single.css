@@ -1,9 +1,13 @@
 .single-voitures .content-area {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    margin: 20px;
+    align-items: center;
+    margin-left: 128px;
     margin-top: 0;
+}
+
+.single-voitures main{
+    width: 100%;
 }
 
 
@@ -30,7 +34,7 @@
     position: relative;
 
     img {
-        width: 496px;
+        width: 450px;
         height: auto
     }
 }
@@ -48,9 +52,11 @@
     font-size: 1.2em;
 }
 
+.single-voitures .car-details .main_infos p{
+    padding-right: 2em;
+}
 .single-voitures .car-details p strong {
     display: inline-block;
-    width: 120px;
 }
 
 .single-voitures .car-details .price {
@@ -78,6 +84,7 @@
     width: 100%;
     max-width: 1200px;
     display: flex;
+    justify-content: center;
     flex-wrap: wrap;
     margin: 40px 0;
 }
@@ -130,9 +137,80 @@
     bottom: 0;
     left: 0;
     img{
-        width: 100%;
+        width: 100% !important;
         height: 100%;
         margin: 0 auto;
         display: block;
+    }
+}
+
+@media screen and (max-width: 1024px){
+    .carContainer {
+        img{
+            width: 300px;
+            height: auto;
+        }
+    }
+
+    .single-voitures .content-area {
+        margin-left: 64px;
+    }
+}
+
+@media screen and (max-width: 768px){
+    .single-voitures .car-details .main_infos p{
+        padding-right: 0;
+    }
+    .single-voitures .main_infos{
+        flex-direction: column;
+    }
+
+    .single-voitures .entry-content{
+        flex-direction: column;
+    }
+
+    .single-voitures .content-area {
+        margin-left: 16px;
+    }
+
+    .carContainer {
+        img{
+            width: 400px;
+            height: auto;
+        }
+    }
+
+    .single-voitures .car-details{
+        margin-left: 0;
+    }
+
+    .sub_infos p{
+        justify-content: center;
+    }
+
+    .price{
+        text-align: center;
+    }
+
+    .car-details > div, .car-details p{
+        text-align: center;
+    }
+
+    .single-voitures .gallery img {
+        width: 45%;
+
+    }
+}
+
+@media screen and (max-width: 428px){
+    .carContainer {
+        img{
+            width: 300px;
+            height: auto;
+        }
+    }
+
+    .single-voitures .gallery-title {
+        font-size: 24px;
     }
 }
