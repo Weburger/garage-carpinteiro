@@ -149,7 +149,7 @@ body{
     margin:0 !important;
 }
 
-.voitures-home{
+.voitures-home, .contact{
     margin: 0 128px;
     padding-top: 128px;
 }
@@ -200,6 +200,21 @@ body{
     width: 300px;
     height: 300px;
     aspect-ratio: 1/1;
+}
+
+.divcontact{
+    display: flex;
+}
+
+.divcontact > div{
+    flex-basis: 50%;
+    margin: 0 1em !important;
+    width: unset;
+}
+
+.divcontact iframe{
+    margin-top: 15px;
+    border: 1px solid grey!important;
 }
 
 .btn-yellow a{
