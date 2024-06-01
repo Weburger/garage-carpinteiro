@@ -111,6 +111,14 @@ function my_assets() {
     wp_enqueue_script('archive-script', get_template_directory_uri() . '/js/archive.js', array('jquery'), '1.0.0', true);
 }
 
+add_action( 'after_setup_theme', function() {
+    register_nav_menus(
+        array('main-menu' => 'Menu principal'
+        )
+    );
+    add_theme_support( 'post-thumbnails' );
+});
+
 function add_voitures_meta_box() {
     add_meta_box(
         'voitures_meta_box',

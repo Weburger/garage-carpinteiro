@@ -67,7 +67,7 @@ body{
 }
 
 #main-navigation{
-
+    align-items: center;
     display:flex;
     justify-content: space-around;
     margin-top:1rem;
@@ -77,14 +77,18 @@ body{
 }
 
 .menu{
-    flex-grow:2;
-}
-
-.menu ul{
     display: flex;
     justify-content: space-around;
     list-style: none;
     padding-left:0;
+}
+
+header .menu{
+    margin-right: 32px;
+}
+
+.menu li{
+    padding: 0 24px
 }
 
 #main-navigation a{
@@ -158,6 +162,7 @@ body{
     flex-wrap: wrap;
     justify-content: space-between;
     text-align: left;
+    justify-content: center;
 }
 
 .voiture-type, .voiture-infos{
@@ -192,8 +197,13 @@ body{
     display: flex;
 }
 
+.voitures-home > div article{
+    margin-bottom: 2em;
+}
+
 .voitures-home div{
     display: flex;
+
 }
 
 .voitures-home img{
@@ -288,11 +298,12 @@ body{
 .footer-bottom {
     background-color: #000;
     color: #fff;
-    padding: 10px 0;
+    padding: 5px 0;
 }
 
 .footer-bottom a {
     color: #fff;
+    font-size: 12px;
     margin: 0 1rem;
     text-decoration: none;
 }
@@ -366,7 +377,108 @@ h2{
 
  .mob-share{
      padding: 5rem 0;
-     font-size: 2rem;
+     font-size: 24px;
      font-weight: 700;
      line-height: 2.5rem;
  }
+
+ .sidenav, #burger{
+     display: none;
+ }
+
+ #burger{
+     margin-right: 32px;
+ }
+
+.MenuOpen{
+    top: 0 !important;
+}
+
+@media screen and (max-width: 1024px){
+    .menu li {
+        padding: 0 14px;
+    }
+
+    .divcontact{
+        flex-direction: column;
+    }
+}
+
+ @media screen and (max-width: 768px){
+     .sidenav, #burger{
+         display: block;
+     }
+
+     .sidenav{
+         display: flex;
+         flex-direction: column;
+         justify-content: space-around;
+         position: fixed;
+         top: -100vh;
+         left: 0;
+         width: 100%;
+         border: 0.5px solid black;
+         border-top: 0;
+         border-right: 0;
+         box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+         transition: 0.5s ease;
+         height: 100vh;
+         background-color: rgba(0, 0, 0, 0.5);
+         backdrop-filter: blur(5px);
+     }
+
+     .sidenav .menu{
+         margin-right: 0;
+     }
+
+     .sidenav nav ul{
+         display: flex;
+         text-align: center;
+         flex-direction: column;
+     }
+
+     .sidenav ul li a{
+         font-size: 24px !important;
+         color: white !important;
+     }
+
+     .sidenav li{
+         padding: 1em;
+     }
+
+     .sidenav > div{
+         position: absolute;
+         top: 32px;
+         right: 32px;
+     }
+
+     #main-navigation > nav{
+        display: none !important;
+     }
+
+     .voitures-home, .wp-block-group, .contact{
+         margin: 0 32px;
+     }
+
+     .equipement{
+         flex-direction: column;
+     }
+ }
+
+@media screen and (max-width: 428px){
+    #menu-footer{
+        flex-direction: column;
+    }
+
+    .voitures-home, .wp-block-group, .contact{
+        margin: 0 16px;
+    }
+
+    .wp-block-heading{
+        font-size: 24px !important;
+    }
+
+    .titre p{
+        font-size: 14px !important;
+    }
+}
