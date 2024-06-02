@@ -230,46 +230,42 @@ function voiture_meta_box_callback($post) {
     echo '<input type="checkbox" id="vendue" name="vendue" value="1"' . checked($vendue, true, false) . '></br></br>';
 
     echo '<label for="modele">' . __('Modèle') . '</label>';
-    echo '<input type="text" id="modele" name="modele" value="' . esc_attr($modele) . '"></br></br>';
-
+    echo '<input type="text" id="modele" name="modele" value="' . esc_attr($modele) . '" required></br></br>';
 
     echo '<label for="marque">' . __('Marque') . '</label>';
-    echo '<input type="text" id="marque" name="marque" value="' . esc_attr($marque) . '"></br></br>';
+    echo '<input type="text" id="marque" name="marque" value="' . esc_attr($marque) . '" required></br></br>';
+
+    echo '<label for="prix">' . __('Prix (euros)') . '</label>';
+    echo '<input type="number" id="prix" name="prix" value="' . esc_attr($prix) . '" required></br></br>';
 
     echo '<label for="classe">' . __('Classe') . '</label>';
-    echo '<input type="text" id="classe" name="classe" value="' . esc_attr($classe) . '"></br></br>';
+    echo '<input type="text" id="classe" name="classe" value="' . esc_attr($classe) . '" required></br></br>';
 
     echo '<label for="motorisation">' . __('Motorisation') . '</label>';
-    echo '<input type="text" id="motorisation" name="motorisation" value="' . esc_attr($motorisation) . '"></br></br>';
-
-    echo '<label for="puissance_fiscale">' . __('Puissance fiscale (cv) ') . '</label>';
-    echo '<input type="number" id="puissance_fiscale" name="puissance_fiscale" value="' . esc_attr($puissance_fiscale) . '"></br></br>';
-
-    echo '<label for="puissance_din">' . __('Puissance DIN (cv) ') . '</label>';
-    echo '<input type="number" id="puissance_din" name="puissance_din" value="' . esc_attr($puissance_din) . '"></br></br>';
+    echo '<input type="text" id="motorisation" name="motorisation" value="' . esc_attr($motorisation) . '" required></br></br>';
 
     echo '<label for="annee">' . __('Année') . '</label>';
-    echo '<input type="text" id="annee" name="annee" value="' . esc_attr($annee) . '"></br></br>';
+    echo '<input type="text" id="annee" name="annee" value="' . esc_attr($annee) . '" required></br></br>';
 
     echo '<label for="km">' . __('Kilometrage') . '</label>';
-    echo '<input type="number" id="km" name="km" value="' . esc_attr($km) . '"></br></br>';
+    echo '<input type="number" id="km" name="km" value="' . esc_attr($km) . '" required></br></br>';
 
     echo '<label for="boite">' . __('boite') . '</label>';
     echo '
-    <select name="boite" id="boite">
+    <select name="boite" id="boite" required>
         <option value="'. esc_attr($boite).'">';
-        if($boite){
-            echo $boite;
-        }else{
-            echo "-- Choisir une option --";
-        }
-        echo'</option>
+    if($boite){
+        echo $boite;
+    }else{
+        echo "-- Choisir une option --";
+    }
+    echo'</option>
         <option value="Manuelle">Manuelle</option>
         <option value="Automatique">Automatique</option>
     </select></br></br>';
 
     echo '<label for="carburant">' . __('Carburant') . '</label>';
-    echo '    <select name="carburant" id="carburant">
+    echo '    <select name="carburant" id="carburant" required>
         <option value="'. esc_attr($carburant).'">';
     if($carburant){
         echo $carburant;
@@ -284,21 +280,9 @@ function voiture_meta_box_callback($post) {
         <option value="Gaz">Gaz</option>
     </select></br></br>';
 
-    echo '<label for="prix">' . __('Prix (euros)') . '</label>';
-    echo '<input type="number" id="prix" name="prix" value="' . esc_attr($prix) . '"></br></br>';
-
-    echo '<label for="portes">' . __('Portes') . '</label>';
-    echo '<input type="number" id="portes" name="portes" value="' . esc_attr($portes) . '"></br></br>';
-
-    echo '<label for="places">' . __('Places') . '</label>';
-    echo '<input type="number" id="places" name="places" value="' . esc_attr($places) . '"></br></br>';
-
-    echo '<label for="consommation">' . __('Consommation (L/100km)') . '</label>';
-    echo '<input type="number" id="consommation" name="consommation" value="' . esc_attr($consommation) . '"></br></br>';
-
     echo'<label for="critair">' . __('Critair') . '</label>';
     echo '
-    <select name="critair" id="critair">
+    <select name="critair" id="critair" required>
         <option value="'. esc_attr($critair).'">';
     if($critair){
         echo $critair;
@@ -313,6 +297,22 @@ function voiture_meta_box_callback($post) {
         <option value="4">4</option>
         <option value="5">5</option>
     </select></br></br>';
+    /*
+    echo '<label for="puissance_fiscale">' . __('Puissance fiscale (cv) ') . '</label>';
+    echo '<input type="number" id="puissance_fiscale" name="puissance_fiscale" value="' . esc_attr($puissance_fiscale) . '"></br></br>';
+
+    echo '<label for="puissance_din">' . __('Puissance DIN (cv) ') . '</label>';
+    echo '<input type="number" id="puissance_din" name="puissance_din" value="' . esc_attr($puissance_din) . '"></br></br>';
+
+    echo '<label for="portes">' . __('Portes') . '</label>';
+    echo '<input type="number" id="portes" name="portes" value="' . esc_attr($portes) . '"></br></br>';
+
+    echo '<label for="places">' . __('Places') . '</label>';
+    echo '<input type="number" id="places" name="places" value="' . esc_attr($places) . '"></br></br>';
+
+    echo '<label for="consommation">' . __('Consommation (L/100km)') . '</label>';
+    echo '<input type="number" id="consommation" name="consommation" value="' . esc_attr($consommation) . '"></br></br>';
+    */
 }
 
 function voiture_save_meta_box_data($post_id) {
