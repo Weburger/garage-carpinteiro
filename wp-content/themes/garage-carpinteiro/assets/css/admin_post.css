@@ -1,0 +1,4 @@
+#menu-item-gallery, #menu-item-playlist, #menu-item-video-playlist, #menu-item-featured-image, #menu-item-embed{
+    display:none !important;
+}
+

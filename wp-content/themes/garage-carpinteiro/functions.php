@@ -6,7 +6,6 @@ add_action( 'wp_enqueue_scripts', 'my_assets' );
 function display_voitures_posts($atts) {
     ob_start();
 
-    // Récupérer le nombre de posts à afficher depuis les options
     $posts_per_page = get_option('voitures_posts_per_page', 10);
 
     $query = new WP_Query(array(
@@ -67,7 +66,6 @@ function display_voitures_posts($atts) {
 add_shortcode('voitures', 'display_voitures_posts');
 
 function voitures_settings_init() {
-    // Ajouter une section dans les réglages
     add_settings_section(
         'voitures_settings_section',
         'Paramètres des Voitures',
@@ -75,7 +73,6 @@ function voitures_settings_init() {
         'reading'
     );
 
-    // Ajouter le champ de saisie
     add_settings_field(
         'voitures_posts_per_page',
         'Nombre de Voitures à Afficher',
@@ -84,7 +81,6 @@ function voitures_settings_init() {
         'voitures_settings_section'
     );
 
-    // Enregistrer le réglage
     register_setting('reading', 'voitures_posts_per_page', array(
         'type' => 'integer',
         'sanitize_callback' => 'absint',
@@ -93,12 +89,10 @@ function voitures_settings_init() {
 }
 add_action('admin_init', 'voitures_settings_init');
 
-// Callback pour la section
 function voitures_settings_section_cb() {
     echo '<p>Paramètres pour les Custom Post Types Voitures.</p>';
 }
 
-// Callback pour le champ de saisie
 function voitures_posts_per_page_cb() {
     $value = get_option('voitures_posts_per_page', 3);
     echo '<input type="number" id="voitures_posts_per_page" name="voitures_posts_per_page" value="' . esc_attr($value) . '" />';
@@ -142,7 +136,6 @@ function display_voitures_meta_box($post) {
     <?php
 }
 
-// Sauvegarder les données de la meta box
 function save_voitures_meta_box_data($post_id) {
     if (!isset($_POST['voitures_meta_box_nonce']) || !wp_verify_nonce($_POST['voitures_meta_box_nonce'], 'save_voitures_meta_box_data')) {
         return;
@@ -613,7 +606,6 @@ function property_gallery_save( $post_id ) {
         else
             delete_post_meta( $post_id, 'gallery_data' );
     }
-    // Nothing received, all fields are empty, delete option
     else{
         delete_post_meta( $post_id, 'gallery_data' );
     }
@@ -699,8 +691,6 @@ function get_min_car_price() {
 
 function enqueue_filter_scripts() {
     wp_enqueue_script('filter-script', get_template_directory_uri() . '/js/filters.js', array('jquery'), null, true);
-
-    // Localisation du script pour y accéder dans le JavaScript
     wp_localize_script('filter-script', 'ajax_url', admin_url('admin-ajax.php'));
 }
 add_action('wp_enqueue_scripts', 'enqueue_filter_scripts');
@@ -806,8 +796,18 @@ function filter_voitures_ajax_handler() {
         } else {
             echo '<p>' . __('Aucun vehicule trouvé.', 'textdomain') . '</p>';
         }
-        wp_die(); // Ceci est crucial pour terminer proprement et retourner la réponse
+        wp_die();
     }
 }
-add_action('wp_ajax_filter_voitures', 'filter_voitures_ajax_handler'); // Si l'utilisateur est connecté
-add_action('wp_ajax_nopriv_filter_voitures', 'filter_voitures_ajax_handler'); // Si l'utilisateur est déconnecté
+add_action('wp_ajax_filter_voitures', 'filter_voitures_ajax_handler');
+add_action('wp_ajax_nopriv_filter_voitures', 'filter_voitures_ajax_handler');
+
+function enqueue_gallery_admin_script() {
+    if(isset($_GET['action']) && isset($_GET['post'])) {
+        if (($_GET['action'] === "edit") && (get_post_type($_GET["post"]) === "voitures")) {
+            wp_register_style( 'admin_post', get_template_directory_uri().'/assets/css/admin_post.css');
+            wp_enqueue_style( 'admin_post' );
+        }
+    }
+}
+add_action('admin_enqueue_scripts', 'enqueue_gallery_admin_script');
