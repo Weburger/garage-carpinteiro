@@ -356,6 +356,8 @@ function voiture_save_meta_box_data($post_id) {
     ];    foreach ($fields as $field) {
         if (isset($_POST[$field])) {
             update_post_meta($post_id, $field, sanitize_text_field($_POST[$field]));
+        }else if($field === "vendue"){
+            delete_post_meta( $post_id, $field );
         }
     }
 
@@ -777,7 +779,8 @@ function filter_voitures_ajax_handler() {
                 $vendue = get_post_meta(get_the_ID(), "vendue", true);
                 ?>
                 <article id="post-<?php the_ID(); ?>" <?php post_class("archive_voiture_card" . ($vendue ? " vendue" : "")); ?> >
-                    <?php the_post_thumbnail(); ?>
+                    <div class="img-car"><?php the_post_thumbnail(); ?>
+                    <?php if($vendue) echo "<div class='car-vendue'><h3>VENDUE</h3></div>" ?></div>
                     <div class="entry-content">
                         <h2 class="entry-title"><?php the_title(); ?></h2>
                         <p class="entry-price"><?php echo esc_html($prix); ?> €</p>

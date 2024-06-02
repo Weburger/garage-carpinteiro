@@ -23,17 +23,17 @@
                 <label for="prix_min"><?php _e('Prix:', 'textdomain'); ?></label>
                 <div class="range_container">
                     <div class="sliders_control">
-                        <input id="fromSlider" type="range" name="prix_min" value="<?php echo isset($_GET['prix_min']) ? esc_html($_GET['prix_min']) : $min_price; ?>" min="<?php echo isset($_GET['prix_min']) ? esc_html($_GET['prix_min']) : $min_price; ?>" max="<?php echo isset($_GET['prix_max']) ? esc_html($_GET['prix_max']) : $max_price+1000; ?>"/>
-                        <input id="toSlider" type="range" name="prix_max" value="<?php echo isset($_GET['prix_max']) ? esc_html($_GET['prix_max']) : $max_price+1000; ?>" min="<?php echo isset($_GET['prix_min']) ? esc_html($_GET['prix_min']) : $min_price; ?>" max="<?php echo isset($_GET['prix_max']) ? esc_html($_GET['prix_max']) : $max_price+1000; ?>"/>
+                        <input id="fromSlider" type="range" name="prix_min" value="<?php echo isset($_GET['prix_min']) ? esc_html($_GET['prix_min']) : $min_price; ?>" min="<?php echo isset($_GET['prix_min']) ? esc_html($_GET['prix_min']) : $min_price; ?>" max="<?php echo isset($_GET['prix_max']) ? esc_html($_GET['prix_max']) : $max_price; ?>"/>
+                        <input id="toSlider" type="range" name="prix_max" value="<?php echo isset($_GET['prix_max']) ? esc_html($_GET['prix_max']) : $max_price; ?>" min="<?php echo isset($_GET['prix_min']) ? esc_html($_GET['prix_min']) : $min_price; ?>" max="<?php echo isset($_GET['prix_max']) ? esc_html($_GET['prix_max']) : $max_price; ?>"/>
                     </div>
                     <div class="form_control">
                         <div class="form_control_container">
                             <div class="form_control_container__time">Min</div>
-                            <input class="form_control_container__time__input" type="number" id="fromInput" value="<?php echo isset($_GET['prix_min']) ? esc_html($_GET['prix_min']) : $min_price; ?>" min="<?php echo isset($_GET['prix_min']) ? esc_html($_GET['prix_min']) : $min_price; ?>" max="<?php echo isset($_GET['prix_max']) ? esc_html($_GET['prix_max']) : $max_price+1000; ?>"/>
+                            <input class="form_control_container__time__input" type="number" id="fromInput" value="<?php echo isset($_GET['prix_min']) ? esc_html($_GET['prix_min']) : $min_price; ?>" min="<?php echo isset($_GET['prix_min']) ? esc_html($_GET['prix_min']) : $min_price; ?>" max="<?php echo isset($_GET['prix_max']) ? esc_html($_GET['prix_max']) : $max_price; ?>"/>
                         </div>
                         <div class="form_control_container">
                             <div class="form_control_container__time">Max</div>
-                            <input class="form_control_container__time__input" type="number" id="toInput" value="<?php echo isset($_GET['prix_max']) ? esc_html($_GET['prix_max']) : $max_price+1000; ?>" min="<?php echo isset($_GET['prix_min']) ? esc_html($_GET['prix_min']) : $min_price; ?>" max="<?php echo isset($_GET['prix_max']) ? esc_html($_GET['prix_max']) : $max_price+1000; ?>"/>
+                            <input class="form_control_container__time__input" type="number" id="toInput" value="<?php echo isset($_GET['prix_max']) ? esc_html($_GET['prix_max']) : $max_price; ?>" min="<?php echo isset($_GET['prix_min']) ? esc_html($_GET['prix_min']) : $min_price; ?>" max="<?php echo isset($_GET['prix_max']) ? esc_html($_GET['prix_max']) : $max_price; ?>"/>
                         </div>
                     </div>
                 </div>
