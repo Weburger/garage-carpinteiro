@@ -13,11 +13,6 @@
     transition: transform 0.3s, box-shadow 0.3s;
 }
 
-.archive_voiture_card:hover {
-    transform: translateY(-5px);
-    box-shadow: 1px 4px 8px rgba(255, 193, 0, 0.34);
-}
-
 .archive_voiture_card img {
     width: 100%;
     height: auto;
@@ -346,4 +341,9 @@ input[type="range"] {
         }
     }
     
+}
+
+.voitures-home{
+    margin:0 !important;
+    padding: 0 !important;
 }
